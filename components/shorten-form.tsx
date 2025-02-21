@@ -11,10 +11,27 @@ export default function ShortenForm() {
   const [url, setUrl] = useState<string>(' ');
 
   //Called on form submit
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault(); //Prevents the default form submission behaviour i.e page refresh
       const trimmedUrl = url.trim();
-      console.log(trimmedUrl);
+      
+      try {
+          const response = await fetch('/api/shorten', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              url,
+            }),
+          });
+          await response.json();
+          setUrl('');
+      }
+      catch(error){
+          console.error('Error shortening URL', error)
+      }
+      finally {
+
+      }
   };
 
   return (
