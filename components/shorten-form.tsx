@@ -4,8 +4,12 @@ import { Input } from './ui/input';
 import { Button } from './ui/button';
 import React, { useState } from 'react'
 
+interface ShortenFormProps {
+  handleUrlShortener: () => void;
+}
+
 // Main component that renders a form for URL shortening
-export default function ShortenForm() {
+export default function ShortenForm({handleUrlShortener} : ShortenFormProps) {
   
   // `url` holds the input value from the user, and `setUrl` is used to update that value
   const [url, setUrl] = useState<string>(' ');
@@ -25,6 +29,7 @@ export default function ShortenForm() {
           });
           await response.json();
           setUrl('');
+          handleUrlShortener();
       }
       catch(error){
           console.error('Error shortening URL', error)

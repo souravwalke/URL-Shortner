@@ -14,9 +14,10 @@ datasource db {
 }
 
 model Url {
-  id  String @id @default(cuid())
-  originalUrl String
-  shortCode String
-  createdAt DateTime @default(now())
-  visits Int @default(0)
+  id          String  @id @default(uuid()) 
+  originalUrl String  
+  shortCode   String  @unique  // Ensure this is marked as unique
+  visits      Int     @default(0)
+  createdAt   DateTime @default(now())
 }
+
